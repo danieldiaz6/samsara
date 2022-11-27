@@ -1,6 +1,6 @@
 const sdk = require('api')('@samsara-dev-rel/v2019.01.01#bcxnht13l8p3g62d');
 
-sdk.auth('samsara_api_cWGSdteERfBXwHhc56MYKN3CH4pLvt');
+sdk.auth('samsara_api_');
 sdk.server('https://api.samsara.com');
 sdk.patchRoute({
   settings: {
