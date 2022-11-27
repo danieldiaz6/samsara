@@ -14,7 +14,7 @@ sdk.createRoute({
         longitude: -84.40995077100422
       },
       name: 'Terminal',
-      scheduledDepartureTime: '2022-10-02T12:00:00Z'
+      scheduledDepartureTime: '2022-10-06T12:00:00Z'
     },
     {
       singleUseLocation: {
@@ -24,8 +24,8 @@ sdk.createRoute({
       },
       name: 'Stop #1',
       notes: 'Customer site 1',
-      scheduledArrivalTime: '2022-10-02T12:15:00Z',
-      scheduledDepartureTime: '2022-10-02T12:30:00Z'
+      scheduledArrivalTime: '2022-10-06T12:15:00Z',
+      scheduledDepartureTime: '2022-10-06T12:30:00Z'
     },
     {
       singleUseLocation: {
@@ -35,8 +35,8 @@ sdk.createRoute({
       },
       name: 'Stop #2',
       notes: 'Customer Site 2',
-      scheduledArrivalTime: '2022-10-02T12:45:00Z',
-      scheduledDepartureTime: '2022-10-02T13:00:00Z'
+      scheduledArrivalTime: '2022-10-06T12:45:00Z',
+      scheduledDepartureTime: '2022-10-06T13:00:00Z'
     },
     {
       singleUseLocation: {
@@ -46,8 +46,8 @@ sdk.createRoute({
       },
       name: 'Stop #3',
       notes: 'Customer site 3',
-      scheduledArrivalTime: '2022-10-02T13:20:00Z',
-      scheduledDepartureTime: '2022-10-02T13:30:00Z'
+      scheduledArrivalTime: '2022-10-06T13:20:00Z',
+      scheduledDepartureTime: '2022-10-06T13:30:00Z'
     },
     {
       singleUseLocation: {
@@ -56,10 +56,10 @@ sdk.createRoute({
         longitude: -84.40995077100422
       },
       name: 'Terminal',
-      scheduledArrivalTime: '2022-10-02T14:00:00Z'
+      scheduledArrivalTime: '2022-10-06T14:00:00Z'
     }
   ],
-  name: 'Perishable Route',
+  name: 'Parliament Trucking Demo',
   vehicleId: '281474982642912'
 })
   .then(res => console.log(res))

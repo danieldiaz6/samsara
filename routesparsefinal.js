@@ -1,6 +1,12 @@
+// Below code will use functions in order to import two datasets
+// Goal: At each stop pull Arrival and departure times with temperature readings. 
+
+//Step 1 assign the responses to the below constants historicalData routeData
 const historicalData = require("/Users/daniel/Desktop/Files/historicalstats.json");
 const routeData = require("/Users/daniel/Desktop/Files/routeUpdates.json");
 
+
+// using the routeStop variable which contains an array with all stop times
 function getStopTimes(routeStops) {
   //Create a empty array which I will use later to add actual time of arrival at each stop
   const stopArrivalDateTimeObj = [];
@@ -10,8 +16,8 @@ function getStopTimes(routeStops) {
     const stopActualArrivalTime = stop.actualArrivalTime;
     const stopActualDepartureTime = stop.actualDepartureTime;
     //last step of this function is to populate the array created above.
-    stopArrivalDateTimeObj.push(stopActualArrivalTime);//stopDateTimeObj='2022-10-03T12:05:40.837Z'
-    stopDepartureDateTimeObj.push(stopActualDepartureTime);//stopDateTimeObj='2022-10-03T12:05:40.837Z'
+    stopArrivalDateTimeObj.push(stopActualArrivalTime);//='2022-10-03T12:05:40.837Z'
+    stopDepartureDateTimeObj.push(stopActualDepartureTime);//='2022-10-03T12:05:40.837Z'
 
     // console.log(stopDateTimeObj)
 }
@@ -20,6 +26,7 @@ function getStopTimes(routeStops) {
   return [stopArrivalDateTimeObj,stopDepartureDateTimeObj];
 }
 
+//using the GPS array pulling temperature and time
 function getHistoricalTimes(historicalDataTemperatures) {
   //Create a empty array which I will use later to add temperature and time
   const histDateTimeObj = [];
@@ -41,8 +48,7 @@ function getStopData(stops, stopArrivalDateTimeObj, histDateTimeObj) {
           //convert string to date time object
         const dateStop = new Date(stopTime); //2022-10-03T12:05:40.837Z
         for (const dateTemps of histDateTimeObj) {
-          //convert string to date time object
-          // Saving to each constant the element of date temps array (element 0) and second element which is element (1)
+    
             const dateHistorical = new Date(dateTemps[0]);
             const temp = dateTemps[1]; //16000
              // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTime
@@ -60,15 +66,15 @@ function getStopData(stops, stopArrivalDateTimeObj, histDateTimeObj) {
       }
       count++
     }
+    
+    // Start to end
     //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice 
+  
     stops=stops.slice(0,stops.length-1)
     return stops
 }
-//Create Function which imports two datasets
-// 1. Vehicle Historical Data
-// 2. Fetch Route Information
-// 3. Call other functions to retrieve Actual Stop Times and Vehicle historical data to pull temperature values
-// 4. Ultimate goal to be able to match actual arrival time with temperature value at that time.
+
+// Step 2 - Below function will call other functions in the code to retrieve the actual arrival and departure times as well as the temperature from the historical file. 
 function getTemperatureAtStops(historicalData, routeData) {
   //Below pulling the routename
   const routeName = routeData.data.name;
@@ -78,27 +84,22 @@ function getTemperatureAtStops(historicalData, routeData) {
   //Pulling the GPS array at position 0
   const historicalDataTemperatures = historicalData.data[0].gps;
 
-    //reference a function below which is the getstoptimes function
-    // I pass the previous created array routestops which contains stop information
-    // Below I define two varilables stopDateTimeObj and histDateTimeObj
-    // stopDateTimeObj I am going to call a function that will help me pull the date and actual arrival time.
-    // getStopTimes  contains both ARrival and departure in the stops array
-  
+ 
+// Step 3 pull the stop times(arrival/Departure) from the getStoptime function    
   const stopTimes = getStopTimes(routeStops);
-  //
+  // pulling at each stop what was the departure and arrival time
   const stopArrivalDateTimeObj = stopTimes[0]
   const stopDepartureDateTimeObj = stopTimes[1]
+
+  // Step 4 from the historical temperature constant (array) pull temperature and time values
   const histDateTimeObj = getHistoricalTimes(historicalDataTemperatures);
 
   //populating stops property within output object from line 84
   let stopArrival = []
   let stopDeparture = []
-
+  // Step 5 using GetStopData function pull the arrival/departure times 
   stopArrival= getStopData(stopArrival, stopArrivalDateTimeObj, histDateTimeObj);
   stopDeparture= getStopData(stopDeparture, stopDepartureDateTimeObj, histDateTimeObj);
-    // console.log(stopDateTimeObj);
-    // console.log(histDateTimeObj);
-    // console.log(outputObject);
 
   return [stopArrival,stopDeparture];
 }
